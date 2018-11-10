@@ -21,6 +21,7 @@ By default, cryptaco will attempt to resolve the host at address 192.168.135.1 o
 	python3 cryptaco.py
 
 You can change the defaults using this format
+	
 	python3 cryptaco.py -h <host> -p <port> -k <keyfile>
 		e.g.
 	python3 cryptaco.py -h 10.0.0.5 -p 8989 -k mykey.pub
