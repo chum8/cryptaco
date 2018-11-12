@@ -30,7 +30,7 @@ capture_mask = "-m"
 try:
     if (len(sys.argv) > 1):
         if capture_host in sys.argv:
-            ip = sys.argv[sys.argv.index(capture_host) + 1]
+            host = sys.argv[sys.argv.index(capture_host) + 1]
         if capture_port in sys.argv:
             port = sys.argv[sys.argv.index(capture_port) + 1]
         if capture_key in sys.argv:
