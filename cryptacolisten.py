@@ -41,7 +41,7 @@ except:
 
 # attempt to load key
 try:
-    with open(key_file, 'r') as f1:
+    with open(key_file, 'rb') as f1:
         key = RSA.importKey(f1.read())
         # print(key) # debug line
 
@@ -54,49 +54,35 @@ except:
     sys.exit()
 
 # attempt to create a socket connection
-#try:
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('localhost',int(port)))
-s.listen(1)
-    #s.connect((host, int(port)))
-"""
+try:
+    print("Listening on " + host + ":" + port + " ...")
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((host,int(port)))
+    s.listen(1)
+    conn, addr = s.accept()
 except:
     print("Fatal error! Unable to bind server socket on port " + port)
     print("Exiting.")
     sys.exit()
-"""
-#print("Listening on " + socket.get_hostname() + " on port " + port)
+    
+print("Connected by",addr)
 
-
+data = ''
 # capture encrypted messages piped across tunnel
-content = ''
-while content != default_exit:
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by',addr)
-        while True:
-            data = conn.recv()
-            if not data:
-                break
+with conn:
+    while str(data) != default_exit:
+        data = conn.recv(4096)
+        if len(data) > 0:
             print(data)
-    #content = s.recv()
-    #print(content)
-"""
-    if content != default_exit:
 
-        # attempt to encrypt the content using the key given
-        try:
-            data = cipher_rsa.encrypt(content.encode())
-            if mask.lower() != 'mask':
-                print(data)
-        except:
-            print("Unable to encrypt message. Try a different message or '" + default_exit + "' to exit.")
+            # attempt to decrypt the content using the key given
+            try:
+                data = cipher_rsa.decrypt(data).decode()
+                print('\n%s\n'%data)
+            except:
+                print("Unable to decrypt message using key " + key_file + ". Make sure you are using the right public/private combination to encrypt and decrypt.")
 
-        # attempt to send string across tunnel
-        try:
-            s.sendall(data)
-        except:
-            print("There was a connection problem sending message to host at 's.sendall(data)'.  Try a different message or '" + default_exit + "' to exit.")
-"""
 # exit system
+s.close()
+print("Connection closed.")
 sys.exit()
