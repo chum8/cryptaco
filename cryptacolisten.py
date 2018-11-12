@@ -56,7 +56,8 @@ except:
 # attempt to create a socket connection
 #try:
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind(('',int(port)))
+s.bind(('localhost',int(port)))
+s.listen(1)
     #s.connect((host, int(port)))
 """
 except:
@@ -70,7 +71,6 @@ except:
 # capture encrypted messages piped across tunnel
 content = ''
 while content != default_exit:
-    s.listen()
     conn, addr = s.accept()
     with conn:
         print('Connected by',addr)
