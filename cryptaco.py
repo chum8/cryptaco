@@ -84,21 +84,21 @@ print("CTRL-C or '" + default_exit + "' to exit.")
 content = ''
 while content != default_exit:
     content = str(input())
-    if content != default_exit:
 
-        # attempt to encrypt the content using the key given
-        try:
-            data = cipher_rsa.encrypt(content.encode())
-            if mask.lower() != 'mask':
-                print(data)
-        except:
-            print("Unable to encrypt message. Try a different message or '" + default_exit + "' to exit.")
+    # attempt to encrypt the content using the key given
+    try:
+        data = cipher_rsa.encrypt(content.encode())
+        if mask.lower() != 'mask':
+            print(data)
+    except:
+        print("Unable to encrypt message. Try a different message or '" + default_exit + "' to exit.")
 
-        # attempt to send string across tunnel
-        try:
-            s.sendall(data)
-        except:
-            print("There was a connection problem sending message to host at 's.sendall(data)'.  Try a different message or '" + default_exit + "' to exit.")
+    # attempt to send string across tunnel
+    try:
+        s.sendall(data)
+    except:
+        print("There was a connection problem sending message to host at 's.sendall(data)'.  Try a different message or '" + default_exit + "' to exit.")
 
 # exit system
+s.close()
 sys.exit()
