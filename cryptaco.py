@@ -71,8 +71,12 @@ try:
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((host, int(port)))
 except:
-    print("Fatal error! Unable to connect to " + host + " on port " + port)
-    print("Is your host machine listening? e.g. nc -nvlp " + port)
+    print("\nFatal error! Unable to connect to " + host + " on port " + port)
+    print("Make sure your host machine is listening.")
+    print("\tnc -nvlp " + port)
+    print("\t\tor")
+    print("\tpy cryptacolisten.py")
+    print("You may also need to supply the correct IP address in cryptaco_conf.py.")
     print("Exiting.")
     sys.exit()
 

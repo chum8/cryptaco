@@ -62,6 +62,7 @@ try:
     conn, addr = s.accept()
 except:
     print("Fatal error! Unable to bind server socket on port " + port)
+    print("Make sure the cryptaco_conf.py configuration file has your IP address.")
     print("Exiting.")
     sys.exit()
     
