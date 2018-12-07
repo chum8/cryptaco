@@ -2,7 +2,7 @@
 Send encrypted message across a network tunnel
 CrypTaco
 # IMPORTANT NOTE
-On my machine, I have aliases the command
+On my machine, I have aliased the command
 ```bash
 	python3
 ```
